@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.season66.itea.repository.OrderMapper">
+
+    <!-- 结果映射定义 -->
+    <resultMap id="orderMap" type="top.season66.itea.model.Order">
+        <id column="id" property="id"/>
+        <result column="status" property="status" typeHandler="org.apache.ibatis.type.EnumOrdinalTypeHandler"/>
+        <result column="amount_discount" property="amount.discount"/>
+        <result column="amount_total" property="amount.totalAmount"/>
+        <result column="amount_pay" property="amount.payAmount"/>
+        <association column="maker_id" property="maker" select="top.season66.itea.repository.TeaMakerMapper.findById"/>
+        <collection column="id" property="items" select="top.season66.itea.repository.MenuItemMapper.findByOrderId"/>
+    </resultMap>
+
+    <!-- SQL语句定义 -->
+    <insert id="save" parameterType="top.season66.itea.model.Order" useGeneratedKeys="true" keyProperty="id">
+        insert into t_order
+        (maker_id, status, amount_discount, amount_pay, amount_total, create_time, update_time)
+        values
+            (#{maker.id}, #{status, typeHandler=org.apache.ibatis.type.EnumOrdinalTypeHandler},
+             #{amount.discount}, #{amount.payAmount}, #{amount.totalAmount}, now(), now())
+    </insert>
+
+    <insert id="addOrderItem" parameterType="map">
+        insert into t_order_item (order_id, item_id) values (#{orderId}, #{item.id})
+    </insert>
+
+    <select id="findById" parameterType="long" resultMap="orderMap">
+        select * from t_order where id = #{id}
+    </select>
+
+    <select id="findByMakerId" parameterType="long" resultMap="orderMap">
+        select * from t_order where maker_id = #{makerId}
+    </select>
+
+
+    <select id="findAll" resultMap="orderMap">
+        select * from t_order
+    </select>
+
+</mapper>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.season66.itea.repository.MenuItemMapper">
+
+    <!-- 结果映射定义 -->
+    <resultMap id="menuItem" type="top.season66.itea.model.MenuItem">
+        <id column="id" property="id" />
+        <result column="size" property="size" typeHandler="org.apache.ibatis.type.EnumOrdinalTypeHandler"/>
+        <result column="price" property="price" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+    </resultMap>
+
+    <!-- SQL语句定义 -->
+    <select id="count" resultType="long">
+        select count(*) from t_menu
+    </select>
+
+    <insert id="save" parameterType="top.season66.itea.model.MenuItem"  useGeneratedKeys="true" keyProperty="id" >
+        insert into t_menu (name, price, size, create_time, update_time)
+        values (#{name}, #{price}, #{size,typeHandler=org.apache.ibatis.type.EnumOrdinalTypeHandler}, now(), now())
+    </insert>
+
+    <insert id="saveAll" parameterType="list" useGeneratedKeys="true" keyProperty="id">
+        insert into t_menu (name, price, size, create_time, update_time)
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.name}, #{item.price}, #{item.size,typeHandler=org.apache.ibatis.type.EnumOrdinalTypeHandler}, now(), now())
+        </foreach>
+    </insert>
+
+
+    <update id="update" parameterType="top.season66.itea.model.MenuItem">
+        update t_menu set name = #{name}, price = #{price}, size = #{size,typeHandler=org.apache.ibatis.type.EnumOrdinalTypeHandler}, update_time = now()
+        where id = #{id}
+    </update>
+
+    <select id="findById" parameterType="long" resultMap="menuItem">
+        select * from t_menu where id = #{id}
+    </select>
+
+    <select id="findByIdList" parameterType="list" resultMap="menuItem">
+        select * from t_menu where id in
+        <foreach item="id" collection="list" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </select>
+    <select id="findByName" parameterType="String" resultMap="menuItem">
+        select * from t_menu where name = #{name}
+    </select>
+
+    <delete id="deleteById" parameterType="long">
+        delete from t_menu where id = #{id}
+    </delete>
+
+<!--    <select id="findAll" resultMap="menuItem">-->
+<!--        select * from t_menu-->
+<!--    </select>-->
+
+    <select id="findByOrderId" parameterType="long" resultMap="menuItem">
+        select m.* from t_menu m, t_order_item i where m.id = i.item_id and i.order_id = #{orderId}
+    </select>
+
+
+
+</mapper>
