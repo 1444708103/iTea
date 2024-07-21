@@ -1,4 +1,4 @@
-package learning.spring.customer;
+package top.season66.customer;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

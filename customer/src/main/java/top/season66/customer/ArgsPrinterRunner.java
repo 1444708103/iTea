@@ -1,4 +1,4 @@
-package learning.spring.customer;
+package top.season66.customer;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;

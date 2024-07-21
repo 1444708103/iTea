@@ -1,6 +1,6 @@
-package learning.spring.customer;
+package top.season66.customer;
 
-import learning.spring.customer.model.NewOrderForm;
+import top.season66.customer.model.NewOrderForm;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

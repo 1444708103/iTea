@@ -1,7 +1,7 @@
-package learning.spring.customer;
+package top.season66.customer;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import learning.spring.customer.model.NewOrderForm;
+import top.season66.customer.model.NewOrderForm;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 import okhttp3.mockwebserver.RecordedRequest;
@@ -41,7 +41,7 @@ class OrderRunnerTest {
     void setUpBeforeEach() {
         runner = new OrderRunner();
         runner.setRestTemplate(new RestTemplate());
-        runner.setBinarytea("http://localhost:" + webServer.getPort());
+        runner.setItea("http://localhost:" + webServer.getPort());
     }
 
     @Test

@@ -1,9 +1,8 @@
-package learning.spring.customer.model;
+package top.season66.customer.model;
 
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import org.joda.money.Money;
 
 import java.math.BigDecimal;
 import java.util.Date;

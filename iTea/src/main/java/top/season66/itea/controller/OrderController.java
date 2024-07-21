@@ -58,4 +58,13 @@ public class OrderController {
         modelMap.addAttribute("orders", orderService.getAllOrder());
         return "order";
     }
+
+    private int createNewOrderForm(NewOrderForm form){
+       List<MenuItem> itemList = form.getItemIdList().stream().map(i->NumberUtils.toLong(i)).collect(
+               Collectors.collectingAndThen(Collectors.toList(),
+               list->menuService.getByIdList(list))
+       );
+       int res = orderService.createOrder(itemList,form.getDiscount());
+       return res;
+    }
 }

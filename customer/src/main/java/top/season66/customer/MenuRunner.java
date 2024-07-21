@@ -1,6 +1,6 @@
-package learning.spring.customer;
+package top.season66.customer;
 
-import learning.spring.customer.model.MenuItem;
+import top.season66.customer.model.MenuItem;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

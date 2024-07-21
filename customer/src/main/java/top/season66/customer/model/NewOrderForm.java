@@ -1,4 +1,4 @@
-package learning.spring.customer.model;
+package top.season66.customer.model;
 
 import lombok.*;
 
